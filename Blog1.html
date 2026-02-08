@@ -1,0 +1,156 @@
+<!doctype html>
+<body><a class="go-back" href="Main.html">Go Back</a>
+
+<style>
+.go-back {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #2563eb;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s, background 0.3s;
+  z-index: 1000;
+}
+
+.go-back:hover {
+  transform: scale(1.2);
+  background: rgb(0, 5, 20);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+</style></body>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Readable Code: Extended Guide with Examples</title>
+  <style>
+    body {font-family: Arial, sans-serif; background:#f9fafb; color:#111; margin:0; padding:0; line-height:1.7;}
+    .container {max-width: 900px; margin: 0 auto; padding: 2rem;}
+    h1, h2 {color:#0f172a;}
+    pre {background:#f1f5f9; padding:12px; border-radius:6px; overflow:auto;}
+    code {font-family: monospace;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Readable Code: Extended Guide with Examples</h1><p>Readable code… it’s not about being clever, it’s about being kind to the one who will read it later, whether that’s someone else or even yourself in the future. Good code should explain itself clearly, without forcing the reader to solve a puzzle. That means using proper names for variables and functions, leaving space where the eye needs to breathe, and writing comments where context is important.
+
+The examples I’ll show go beyond trivial cases.</p><p>They’re longer, yes, but they mirror reality: loops, conditionals, functions, even small real-world problems. And forget the habit of naming everything with single letters. Unless it truly makes sense, like an index in a simple loop. Otherwise, the cost of such shortcuts is confusion.</p>
+
+<h2>1. Descriptive Names</h2>
+<p>When you choose names in code, they should tell you what the data represents or what the function is meant to do. If the name alone makes the purpose clear, you won’t need to keep looking back at comments just to understand it.</p>
+
+<pre><code>// ❌ Poor naming
+
+function calc(a, b) { let r = a % b; let q = Math.floor(a / b); let arr = new Array(b).fill(q); for (let i = 0; i < r; i++) { arr[i]++; } return arr; }</code></pre>
+
+<pre><code>// ✅ Better naming
+
+function divideIntoGroups(totalStudents, numberOfGroups) { let remainingStudents = totalStudents % numberOfGroups; let baseGroupSize = Math.floor(totalStudents / numberOfGroups); let groupSizes = new Array(numberOfGroups).fill(baseGroupSize);
+
+// Distribute remaining students into the first few groups for (let groupIndex = 0; groupIndex < remainingStudents; groupIndex++) { groupSizes[groupIndex]++; } return groupSizes; }</code></pre>
+
+<p>In this example, the names <code>remainingStudents</code> and <code>groupSizes</code> already tell you what’s happening. You don’t need to guess or decode their purpose.</p>
+
+<h2>2. Using Loops and Clear Steps</h2>
+<pre><code>// ❌ Hard to read - all in one line
+
+function calculateOrderTotal(o){let t=0;for(let i=0;i<o.length;i++){t+=o[i].price;}let tax=t*0.07;return t+tax;}
+
+// ✅ Easier to read function calculateOrderTotal(orderItems) { let subtotal = 0; for (let itemIndex = 0; itemIndex < orderItems.length; itemIndex++) { let item = orderItems[itemIndex]; subtotal += item.price; }
+
+let taxAmount = subtotal * 0.07; let totalCost = subtotal + taxAmount; return totalCost; }</code></pre>
+
+<p>Now each step has a clear purpose. First you calculate the subtotal, then the tax, and finally the total.</p>
+
+<h2>3. Conditional Logic with Explanations</h2>
+<pre><code>/**
+
+Decide which shipping method to use.
+
+Heavy orders use freight.
+
+
+Medium weight uses ground.
+
+
+Small orders use standard shipping. */ function chooseShippingMethod(order) { if (order.weight > 50) { return "Freight"; } else if (order.weight > 10) { return "Ground"; } else { return "Standard"; } }</code></pre>
+
+
+ <p>Each branch is clear. There are no unexplained magic numbers, and the comment describes the overall decision process.</p> <h2>4. Larger Example: Filtering and Mapping</h2>
+ <pre><code>// Get names of in-stock products over $20
+function getPremiumProductNames(products) { let inStockProducts = products.filter(product => product.stock > 0);
+
+let premiumProducts = inStockProducts.filter(product => product.price > 20);
+
+let productNames = premiumProducts.map(product => product.name);
+
+return productNames; }
+
+// Example usage: const products = [ { name: "Pen", price: 2, stock: 100 }, { name: "Notebook", price: 5, stock: 0 }, { name: "Backpack", price: 35, stock: 5 }, { name: "Laptop", price: 900, stock: 2 } ];
+
+console.log(getPremiumProductNames(products)); // ["Backpack", "Laptop"]</code></pre>
+
+<p>This example demonstrates filtering, mapping, and the use of meaningful variable names.</p>
+
+<h2>5. Real-World Mini Example: User Login</h2>
+<pre><code>function loginUser(username, password, userDatabase) {
+
+// Find matching user let user = userDatabase.find(dbUser => dbUser.username === username);
+
+if (!user) { return { success: false, message: "User not found" }; }
+
+// Check password if (user.password !== password) { return { success: false, message: "Incorrect password" }; }
+
+// Successful login return { success: true, message: "Welcome back, " + username + "!" }; }</code></pre>
+
+<p>Notice how the code flows naturally: find the user, check password, return result.</p>
+
+<h2>6. Writing Helpful Comments</h2>
+<pre><code>// ❌ Bad comment: obvious
+
+// Increase counter by 1 counter++;
+
+// ✅ Good comment: explains purpose // Count how many users have logged in today loggedInUserCount++;</code></pre>
+
+<h2>7. Refactoring Example</h2>
+<pre><code>// ❌ Hard to read
+
+function processOrders(orders){let r=[];for(let i=0;i<orders.length;i++){if(orders[i].paid){let t=orders[i].total;if(t>100){orders[i].priority=true;}r.push(orders[i]);}}return r;}
+
+// ✅ Refactored and clear function processOrders(orders) { let processedOrders = [];
+
+for (let order of orders) { if (!order.paid) { continue; // Skip unpaid orders }
+
+if (order.total > 100) {
+  order.priority = true; // Mark expensive orders
+}
+
+processedOrders.push(order);
+
+}
+
+return processedOrders; }</code></pre>
+
+<h2>Takeaways</h2>
+<ul>
+  <li>Use descriptive names: <code>remainingStudents</code> is better than <code>r</code></li>
+  <li>Break code into clear steps with blank lines</li>
+  <li>Explain decisions in comments, not the obvious actions</li>
+  <li>Refactor long functions into smaller, focused ones</li>
+</ul>
+
+<p>By writing code this way, you make it easy for others, and even for your future self, to understand what’s happening. No guessing, and no wasted time.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Links</title>
+  <style>
+    body {
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: url('YC.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+    }
+    .blog-container {
+      display: flex;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .blog-link {
+      text-decoration: none;
+      color: #0f172a;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 10px;
+      transition: transform 0.5s, background 0.5s;
+      background: #e2e8f0;
+      text-align: center;
+    }
+    .blog-link:hover {
+      transform: scale(1.2) rotate(5deg);
+      background: #000a20;
+      color: #fff;
+    }
+    .go-back {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 25px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .go-back:hover {
+      transform: scale(1.1);
+      background: rgba(0,0,0,0.8);
+    }
+  </style>
+</head>
+<body>  <div class="blog-container">
+    <a class="blog-link" href="Blog1.html" target="_blank">Readable Code</a>
+
+  <script>
+    const links = document.querySelectorAll('.blog-link');
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        link.style.transition = 'transform 0.6s ease-in-out, background 0.6s';
+        link.style.transform = 'scale(1.5) rotate(15deg)';
+        setTimeout(() => {
+          window.open(link.href, '_blank');
+          link.style.transform = 'scale(1) rotate(0deg)';
+        }, 400);
+      });
+    });
+  </script></body>
+</html>
